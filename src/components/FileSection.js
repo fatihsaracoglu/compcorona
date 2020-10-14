@@ -2,19 +2,15 @@ import React from "react";
 import {
   Button,
   Modal,
-  Alert,
-  Form,
   Row,
   Col,
   Card,
 } from "react-bootstrap";
-import Dropzone from "react-dropzone";
 import { Link } from "react-router-dom";
-import { parse } from "papaparse";
 import FileTable from './FileTable';
 import DropzoneContainer from './DropzoneContainer';
 
-import "./Dropzone.css";
+import "../assets/Dropzone.css";
 
 class FileSection extends React.Component {
   constructor() {
@@ -89,9 +85,9 @@ class FileSection extends React.Component {
   /********************************/
 
   /******** To handle state change based on Table */
-  handleStateUpdate = (filteredFiles) => {
+  handleStateUpdate = (filteredFiles, nonFilteredFiles) => {
     this.setState({
-      filteredFiles
+      filteredFiles, nonFilteredFiles
     })
   }
 
@@ -112,7 +108,7 @@ class FileSection extends React.Component {
             {this.state.nonFilteredFiles.length > 0 ? (
               <Col>
                 <div className="table-section">
-                  <FileTable filteredFiles={this.state.filteredFiles} nonFilteredFiles={this.state.nonFilteredFiles} handleStateUpdate= {this.handleStateUpdate} />
+                  <FileTable filteredFiles={this.state.filteredFiles} nonFilteredFiles={this.state.nonFilteredFiles} handleStateUpdate={this.handleStateUpdate} />
                 </div>
               </Col>
             ) : null}

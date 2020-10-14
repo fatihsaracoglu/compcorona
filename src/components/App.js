@@ -3,7 +3,6 @@ import Header from "./Header";
 import FileSection from "./FileSection";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import VennDiagram from "./VennDiagram";
-import VennDiagram1 from "./VennDiagram1";
 
 var data = [];
 
@@ -18,7 +17,7 @@ class App extends React.Component {
       <div>
         <BrowserRouter>
           <div style={{ textAlign: "center" }}>
-            <Route path="/diagram" exact>
+            <Route path="/" exact>
               <Header />
               <FileSection
                 sendData={this.getData}
@@ -26,14 +25,13 @@ class App extends React.Component {
               />
             </Route>
             <Route
-            path="/"
+            path="/diagram"
             exact
             render={(props) =>
               data.length === 0 ? (
-                <VennDiagram1 {...props} data={data} />
-              ) : (
                 <Redirect to="/" />
-                
+              ) : (
+                <VennDiagram {...props} data={data} />
               )
             }
           />

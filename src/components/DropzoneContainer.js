@@ -2,7 +2,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { parse } from "papaparse";
 import { Button, Modal, Alert } from "react-bootstrap";
-import DragAndDropIcon from './drag-drop-icon.jpg';
+import DragAndDropIcon from '../assets/drag-drop-icon.jpg';
 
 class DropzoneContainer extends React.Component {
   constructor() {
@@ -70,6 +70,7 @@ class DropzoneContainer extends React.Component {
         [...self.props.nonFilteredFiles, fileObj],
         true
       );
+      return true;
     });
   };
 
@@ -95,7 +96,7 @@ class DropzoneContainer extends React.Component {
                 })}
               >
                 <input {...getInputProps()} />
-                <img id="drag-drop-icon" src={DragAndDropIcon}></img>
+                <img alt="file-uploader-icon" id="drag-drop-icon" src={DragAndDropIcon}></img>
                 <div>
                   Dosyaları sürükleyip bırakın, ya da seçmek için tıklayın
                 </div>

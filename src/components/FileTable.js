@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Table,
-  Button,
-  Modal,
-  Form
-} from "react-bootstrap";
+import { Table, Button, Modal, Form } from "react-bootstrap";
 import { unparse } from "papaparse";
 import { CsvToHtmlTable } from "react-csv-to-table";
-
 
 class FileTable extends React.Component {
   constructor(props) {
@@ -15,9 +9,9 @@ class FileTable extends React.Component {
     this.state = {
       isEditModalOpen: false,
       isPreviewModalOpen: false,
-      fileContent: '',
-      previousName: '',
-      newName: ''
+      fileContent: "",
+      previousName: "",
+      newName: "",
     };
   }
 
@@ -69,7 +63,6 @@ class FileTable extends React.Component {
     );
     let index = newfilteredFiles.indexOf(obj);
     newfilteredFiles.fill((obj.name = this.state.newName), index, index++);
-    handleStateUpdate(newfilteredFiles);
     this.setState({
       newName: "",
     });
@@ -81,7 +74,7 @@ class FileTable extends React.Component {
     );
     let index2 = newfilteredFiles2.indexOf(obj2);
     newfilteredFiles2.fill((obj2.name = this.state.newName), index2, index2++);
-    handleStateUpdate(newfilteredFiles2);
+    handleStateUpdate(newfilteredFiles, newfilteredFiles2);
     this.setState({
       newName: "",
     });
@@ -92,27 +85,23 @@ class FileTable extends React.Component {
   /********** DELETING ****************/
 
   deleteFile = (fileName) => {
+    var handleStateUpdate = this.props.handleStateUpdate;
     // deleting from filtered files
-    var newfilteredFiles = this.state.filteredFiles;
+    var newfilteredFiles = this.props.filteredFiles;
     let obj = newfilteredFiles.find((file) => file.name === fileName);
     let index = newfilteredFiles.indexOf(obj);
     var deletedFileList = newfilteredFiles
       .slice(0, index)
       .concat(newfilteredFiles.slice(index + 1));
-    this.setState({
-      filteredFiles: deletedFileList,
-    });
 
     // deleting from non-filtered files
-    var newfilteredFiles2 = this.state.nonFilteredFiles;
+    var newfilteredFiles2 = this.props.nonFilteredFiles;
     let obj2 = newfilteredFiles2.find((file) => file.name === fileName);
     let index2 = newfilteredFiles2.indexOf(obj2);
-    var deletedFileList2 = newfilteredFiles
+    var deletedFileList2 = newfilteredFiles2
       .slice(0, index2)
       .concat(newfilteredFiles2.slice(index2 + 1));
-    this.setState({
-      nonFilteredFiles: deletedFileList2,
-    });
+    handleStateUpdate(deletedFileList, deletedFileList2);
   };
 
   /********************************/
@@ -139,6 +128,7 @@ class FileTable extends React.Component {
                   <td>{file.content.length}</td>
                   <td>
                     <Button
+                      className="shadow-none"
                       onClick={(e) => this.togglePreviewModal(file.content)}
                       variant="outline-success"
                       size="sm"
@@ -147,6 +137,7 @@ class FileTable extends React.Component {
                       <i className="eye icon" id="icons"></i>
                     </Button>
                     <Button
+                      className="shadow-none"
                       onClick={(e) => this.editFileName(file.name, e)}
                       variant="outline-info"
                       size="sm"
@@ -155,6 +146,7 @@ class FileTable extends React.Component {
                       <i className="edit icon" id="icons"></i>
                     </Button>
                     <Button
+                      className="shadow-none"
                       onClick={() => {
                         this.deleteFile(file.name);
                       }}
