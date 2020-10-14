@@ -21,3 +21,31 @@ table  { border-collapse: collapse; width: 100%; }
   width: 70%;
   margin: 0 auto;
 }
+
+.file-related-section {
+  margin: 0 10% 0 10%;
+}
+
+.table-section {
+  height: 295px;
+  overflow: auto;
+  position: relative;
+  margin-right: 5%;
+}
+
+#preview-btn {  
+  margin-right: 5%
+}
+
+#edit-btn {
+  margin-right: 5%;
+}
+
+#icons {
+  margin: 0 auto;
+}
+
+#drag-drop-icon {
+  width: 13%;
+  margin-bottom: 5%;
+}

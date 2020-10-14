@@ -1,8 +1,9 @@
 import React from "react";
 import Header from "./Header";
-import FileUploader from "./FileUploader";
+import FileSection from "./FileSection";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import VennDiagram from "./VennDiagram";
+import VennDiagram1 from "./VennDiagram1";
 
 var data = [];
 
@@ -16,26 +17,28 @@ class App extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <div className="container" style={{ textAlign: "center" }}>
-            <Route path="/" exact>
+          <div style={{ textAlign: "center" }}>
+            <Route path="/diagram" exact>
               <Header />
-              <FileUploader
+              <FileSection
                 sendData={this.getData}
                 style={{ marginBottom: "15%" }}
               />
             </Route>
-          </div>
-          <Route
-            path="/diagram"
+            <Route
+            path="/"
             exact
             render={(props) =>
               data.length === 0 ? (
-                <Redirect to="/" />
+                <VennDiagram1 {...props} data={data} />
               ) : (
-                <VennDiagram {...props} data={data} />
+                <Redirect to="/" />
+                
               )
             }
           />
+          </div>
+          
         </BrowserRouter>
       </div>
     );
