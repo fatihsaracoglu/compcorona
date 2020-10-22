@@ -1,46 +1,41 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Header from "./Header";
 import FileSection from "./FileSection";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
-import VennDiagram from "./VennDiagram";
+import Footer from "./Footer";
+import { BrowserRouter, Route } from "react-router-dom";
+import DiagramPage from "./DiagramPage";
+import "../i18n";
+import "../assets/App.css";
+import SelectPreprocessedData from "./SelectPreprocessedData";
+import { FileStore } from "../stores/FileStore";
 
-var data = [];
+const App = () => {
 
-class App extends React.Component {
-  getData = (value) => {
-    console.log(value);
-    data = value;
-  };
+  const nonFilteredFiles = FileStore.useState((s) => s.nonFilteredFiles);
+  const filteredFiles = FileStore.useState((s) => s.filteredFiles);
 
-  render() {
-    return (
-      <div>
-        <BrowserRouter>
+  return (
+    <div>
+      <Suspense fallback={null}>
+        <BrowserRouter basename={'/tubitak-covid'}>
           <div style={{ textAlign: "center" }}>
-            <Route path="/" exact>
+            <Route path={`${process.env.PUBLIC_URL}/`} exact>
               <Header />
-              <FileSection
-                sendData={this.getData}
-                style={{ marginBottom: "15%" }}
-              />
+              <FileSection style={{ marginBottom: "15%" }} />
+              {nonFilteredFiles.length !== 0 || filteredFiles.length !== 0 ? null : (
+              <div style={{ marginTop: "3%" }}>
+                <SelectPreprocessedData />
+              </div>)}
+              <Footer />
             </Route>
-            <Route
-            path="/diagram"
-            exact
-            render={(props) =>
-              data.length === 0 ? (
-                <Redirect to="/" />
-              ) : (
-                <VennDiagram {...props} data={data} />
-              )
-            }
-          />
+            <Route path={`${process.env.PUBLIC_URL}/diagram`} exact>
+              <DiagramPage />
+            </Route>
           </div>
-          
         </BrowserRouter>
-      </div>
-    );
-  }
-}
+      </Suspense>
+    </div>
+  );
+};
 
 export default App;

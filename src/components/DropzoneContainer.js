@@ -2,43 +2,54 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { parse } from "papaparse";
 import { Button, Modal, Alert } from "react-bootstrap";
-import DragAndDropIcon from '../assets/drag-drop-icon.jpg';
+import DragAndDropIcon from "../assets/drag-drop-icon.jpg";
+import { withTranslation } from "react-i18next";
+import { FileStore } from "../stores/FileStore";
 
-class DropzoneContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isMaxLimitErrorModalOpen: false,
-      isErrorModalOpen: false,
-    };
-  }
+const DropzoneContainer = (props) => {
+  const nonFilteredFiles = FileStore.useState((s) => s.nonFilteredFiles);
+  const isFiltered = FileStore.useState((s) => s.isFiltered);
+  const pValue = FileStore.useState((s) => s.pValue);
+  const foldChange = FileStore.useState((s) => s.foldChange);
+  const isMaxLimitErrorModalOpen = FileStore.useState(
+    (s) => s.isMaxLimitErrorModalOpen
+  );
+  const isErrorModalOpen = FileStore.useState((s) => s.isErrorModalOpen);
 
   // When files are dragged or selected, this function will be called. It takes uploaded files
   // and check their count. If the count is not greater than 3, it will read files and show a model
   // to allow user to make filtering on files.
-  onDrop = async (files) => {
-    if (files.length > 3 || this.props.nonFilteredFiles.length === 3) {
-      this.setState({
-        isMaxLimitErrorModalOpen: true,
+  const onDrop = async (files) => {
+    if (files.length > 3 || nonFilteredFiles.length + files.length > 3) {
+      FileStore.update((s) => {
+        s.isMaxLimitErrorModalOpen = true;
       });
       setTimeout(() => {
-        this.setState({
-          isMaxLimitErrorModalOpen: false,
+        FileStore.update((s) => {
+          s.isMaxLimitErrorModalOpen = false;
         });
       }, 2000);
     } else {
       var allowedFiles = [];
       files.forEach((file) => {
         if (file.type !== "text/csv") {
-          this.setState({
-            isErrorModalOpen: true,
+          FileStore.update((s) => {
+            s.isErrorModalOpen = true;
+          });
+        } else if (file.name === "SARS" || file.name === "MERS" || file.name === "SARS_COV2") {
+          //CHANGE THIS LATER
+          FileStore.update((s) => {
+            s.isErrorModalOpen = true;
           });
         } else {
           allowedFiles.push(file);
         }
       });
       if (allowedFiles.length > 0) {
-        this.readFiles(allowedFiles);
+        FileStore.update((s) => {
+          s.activeIndex = 0;
+        });
+        readFiles(allowedFiles);
       }
     }
   };
@@ -46,81 +57,124 @@ class DropzoneContainer extends React.Component {
   // It gets files argument from onDrag() method and traverse them to parse into rows.
   // It will set the nonFilteredFiles as: [{name, content}, {name, content}, ...].
   // The objects in the array are non-filtered files.
-  readFiles = (files) => {
-    var handleStateUpdateForDropzone = this.props.handleStateUpdateForDropzone;
+  const readFiles = (files) => {
     // for accessing state
-    const self = this;
     files.map((file) => {
-      var rows = [];
-      var reader = new FileReader();
-      reader.readAsText(file);
+      const reader = new FileReader();
       reader.onload = (e) => {
-        var content = e.target.result;
+        const content = e.target.result;
         var parsedCSV = parse(content, {
-          header: true,
+          header: true, skipEmptyLines: true
         });
-        parsedCSV.data.forEach((row) => {
-          rows.push(row);
-        });
+        readRows(file, parsedCSV.data);
       };
-      var fileObj = {};
-      fileObj["name"] = file.name;
-      fileObj["content"] = rows;
-      handleStateUpdateForDropzone(
-        [...self.props.nonFilteredFiles, fileObj],
-        true
-      );
+      reader.readAsText(file);
       return true;
+    });
+  };
+
+  const readRows = (file, rows) => {
+    var fileObj = {};
+    fileObj["name"] = file.name;
+    fileObj["content"] = rows;
+    if (isFiltered) {
+      filterFile(fileObj);
+    }
+    FileStore.update((s) => {
+      s.nonFilteredFiles.push(fileObj);
+    });
+  };
+
+  const filterFile = (file) => {
+    var filteredRows = [];
+    file.content.forEach((row) => {
+      if (parseFloat(row.pval) <= pValue && parseFloat(row.fc) >= foldChange) {
+        filteredRows.push(row);
+      }
+    });
+    var fileObj = {};
+    fileObj["name"] = file.name;
+    fileObj["content"] = filteredRows;
+    FileStore.update((s) => {
+      s.filteredFiles.push(fileObj);
     });
   };
 
   /******** ERROR MODAL ***********/
 
-  toggleErrorModal = () => {
-    this.setState({
-      isErrorModalOpen: !this.state.isErrorModalOpen,
+  const toggleErrorModal = () => {
+    FileStore.update((s) => {
+      s.isErrorModalOpen = !isErrorModalOpen;
     });
   };
 
   /********************************/
 
-  render() {
-    return (
-      <div>
-        <Dropzone onDrop={this.onDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <section className="container">
-              <div
-                {...getRootProps({
-                  className: "dropzone",
-                })}
-              >
-                <input {...getInputProps()} />
-                <img alt="file-uploader-icon" id="drag-drop-icon" src={DragAndDropIcon}></img>
-                <div>
-                  Dosyaları sürükleyip bırakın, ya da seçmek için tıklayın
-                </div>
-              </div>
-            </section>
-          )}
-        </Dropzone>
-        <Modal show={this.state.isMaxLimitErrorModalOpen}>
-          <Modal.Body
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <div>
-              <i
-                className="exclamation circle icon"
-                style={{
-                  color: "red",
-                  fontSize: "80px",
-                  paddingBottom: "8%",
-                }}
-              ></i>
+  return (
+    <div>
+      <Dropzone onDrop={onDrop}>
+        {({ getRootProps, getInputProps }) => (
+          <section className="container">
+            <div
+              {...getRootProps({
+                className: "dropzone",
+              })}
+            >
+              <input {...getInputProps()} />
+              <img
+                alt="file-uploader-icon"
+                id="drag-drop-icon"
+                src={DragAndDropIcon}
+              ></img>
+              <div>{props.t("dropzone")}</div>
             </div>
-          </Modal.Body>
+          </section>
+        )}
+      </Dropzone>
+      <Modal show={isMaxLimitErrorModalOpen}>
+        <Modal.Body
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <i
+              className="exclamation circle icon"
+              style={{
+                color: "red",
+                fontSize: "80px",
+                paddingBottom: "8%",
+              }}
+            ></i>
+          </div>
+        </Modal.Body>
+        <Alert
+          variant="secondary"
+          style={{
+            textAlign: "center",
+            borderRadius: "0",
+            marginTop: "3%",
+          }}
+        >
+          {props.t("file.count.error")}
+        </Alert>
+      </Modal>
+      <Modal show={isErrorModalOpen} onHide={toggleErrorModal}>
+        <Modal.Body
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <i
+              className="exclamation circle icon"
+              style={{
+                color: "red",
+                fontSize: "80px",
+                paddingBottom: "8%",
+              }}
+            ></i>
+          </div>
           <Alert
             variant="secondary"
             style={{
@@ -129,52 +183,15 @@ class DropzoneContainer extends React.Component {
               marginTop: "3%",
             }}
           >
-            En fazla 3 adet dosya yükleyebilirsiniz!
+            {props.t("csv.type.error")}
           </Alert>
-        </Modal>
-        <Modal
-          show={this.state.isErrorModalOpen}
-          onHide={this.toggleErrorModal}
-        >
-          <Modal.Body
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <div>
-              <i
-                className="exclamation circle icon"
-                style={{
-                  color: "red",
-                  fontSize: "80px",
-                  paddingBottom: "8%",
-                }}
-              ></i>
-            </div>
-            <Alert
-              variant="secondary"
-              style={{
-                textAlign: "center",
-                borderRadius: "0",
-                marginTop: "3%",
-              }}
-            >
-              You can upload only CSV files!
-              <br />
-              Some of files cannot be uploaded...
-            </Alert>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={this.toggleErrorModal}
-            >
-              OK
-            </Button>
-          </Modal.Body>
-        </Modal>
-      </div>
-    );
-  }
-}
+          <Button variant="secondary" size="sm" onClick={toggleErrorModal}>
+            {props.t("ok")}
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+};
 
-export default DropzoneContainer;
+export default withTranslation()(DropzoneContainer);
