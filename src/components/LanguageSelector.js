@@ -16,8 +16,8 @@ const LanguageSelector = () => {
   };
 
   const languages = [
-    { code: "en", name: "English" },
     { code: "tr", name: "Türkçe" },
+    { code: "en", name: "English" },
   ];
 
   const options = languages.map((language, idx) => {
@@ -28,7 +28,6 @@ const LanguageSelector = () => {
         </li>
       );
     }
-    return true;
   });
 
   return (

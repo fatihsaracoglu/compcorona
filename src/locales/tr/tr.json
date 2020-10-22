@@ -31,6 +31,8 @@
   "file.name.error": "İsmi aynı olan dosyaları yeniden adlandırınız!",
   "show.gene.list": "Gen Listesini Önizle",
   "go.ncbi": "Genleri NCBI'da Ara",
+  "go.ncbi.genes": "Genleri NCBI Genes'de Ara",
+  "go.ncbi.pathway": "Genleri NCBI Pathways'de Ara",
   "download.gene.list": "Gen Listesini İndir",
   "preprocessed.modal.title": "Hazır Gen Setleri",
   "select.label": "Seçiniz...",

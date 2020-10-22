@@ -20,7 +20,7 @@ export const FileStore = new Store({
   generateVennDiagram: false,
   activeIndex: 0,
   isValidName: true,
-  language: "tr",
+  language: "en",
   sets: [],
   geneObjectList: [],
   isGeneListModalOpen: false,

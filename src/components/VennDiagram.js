@@ -5,8 +5,9 @@ import { Modal, ListGroup, Button, Tabs, Tab } from "react-bootstrap";
 import { FileStore } from "../stores/FileStore";
 import { withTranslation } from "react-i18next";
 import { ExportToCsv } from "export-to-csv";
+import "../assets/VennDiagram.css";
 
- /* eslint-disable */
+/* eslint-disable */
 
 const VennDiagram1 = (props) => {
   const sets = FileStore.useState((s) => s.sets);
@@ -83,7 +84,7 @@ const VennDiagram1 = (props) => {
           .style("stroke-opacity", 0);
       })
       .on("click", (d, i) => {
-        console.log(sets)
+        console.log(sets);
         //returns associated region's object {content:["", "",..], label:[""]}
         let region_obj = geneObjectList.find((obj) =>
           arraysEqual(obj.label, d.sets)
@@ -92,18 +93,18 @@ const VennDiagram1 = (props) => {
         FileStore.update((s) => {
           s.clickedRegionObject = region_obj;
         });
-        
+
         FileStore.update((s) => {
           s.currentRegionGeneCount = region_obj.content.length;
         });
- 
+
         var intersection_objects = [];
         if (d.sets.length === 1) {
           geneObjectList.forEach((x) => {
             if (x.label.length === 2 && x.label.includes(region_obj.label[0]))
               intersection_objects.push(x);
           });
-          
+
           FileStore.update((s) => {
             s.geneListWithoutIntersections = region_obj.differenceGenes;
           });
@@ -241,7 +242,27 @@ const VennDiagram1 = (props) => {
     const url =
       "https://www.ncbi.nlm.nih.gov/gene/?term=(" +
       genes +
-      ')+AND+"Homo+sapiens"[porgn%3A__txid9606]';
+      ')+AND+"Homo+sapiens"[porgn:__txid9606]';
+    window.open(url, "_blank");
+    FileStore.update((s) => {
+      s.isGeneListWebsiteOptionModal = false;
+      s.isGeneListWebsiteOptionModal2 = false;
+    });
+  };
+
+  const handleNCBIPathwayPress = () => {
+    var genes = "";
+    for (var i = 0; i < geneList.length; i++) {
+      if (i === geneList.length - 1) {
+        genes += geneList[i] + "[GN]";
+        break;
+      }
+      genes += geneList[i] + "[GN]+OR+";
+    }
+    const url =
+      "https://www.ncbi.nlm.nih.gov/biosystems/?term=(" +
+      genes +
+      ')+AND+"Homo+sapiens"[Organism]';
     window.open(url, "_blank");
     FileStore.update((s) => {
       s.isGeneListWebsiteOptionModal = false;
@@ -340,7 +361,19 @@ const VennDiagram1 = (props) => {
               </div>
             ) : (
               initialGeneList.map((gene, idx) => {
-                return <ListGroup.Item key={idx}>{gene}</ListGroup.Item>;
+                var url =
+                  "https://www.ncbi.nlm.nih.gov/gene/?term=(" +
+                  gene +
+                  '[GN])+AND+"Homo+sapiens"[porgn:__txid9606]';
+                return (
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    target="_blank"
+                    href={url}
+                  >
+                    <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
+                  </a>
+                );
               })
             )}
           </ListGroup>
@@ -389,7 +422,19 @@ const VennDiagram1 = (props) => {
                   </div>
                 ) : (
                   initialGeneList2.map((gene, idx) => {
-                    return <ListGroup.Item key={idx}>{gene}</ListGroup.Item>;
+                    var url =
+                      "https://www.ncbi.nlm.nih.gov/gene/?term=(" +
+                      gene +
+                      '[GN])+AND+"Homo+sapiens"[porgn:__txid9606]';
+                    return (
+                      <a
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        target="_blank"
+                        href={url}
+                      >
+                        <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
+                      </a>
+                    );
                   })
                 )}
               </ListGroup>
@@ -418,7 +463,19 @@ const VennDiagram1 = (props) => {
                   </div>
                 ) : (
                   initialGeneList.map((gene, idx) => {
-                    return <ListGroup.Item key={idx}>{gene}</ListGroup.Item>;
+                    var url =
+                      "https://www.ncbi.nlm.nih.gov/gene/?term=(" +
+                      gene +
+                      '[GN])+AND+"Homo+sapiens"[porgn:__txid9606]';
+                    return (
+                      <a
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        target="_blank"
+                        href={url}
+                      >
+                        <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
+                      </a>
+                    );
                   })
                 )}
               </ListGroup>
@@ -479,7 +536,17 @@ const VennDiagram1 = (props) => {
                 size="sm"
                 onClick={handleNCBIPress}
               >
-                {props.t("go.ncbi")}
+                {props.t("go.ncbi.genes")}
+              </Button>
+            </div>
+            <div className="col-4">
+              <Button
+                className="shadow-none"
+                variant="outline-primary"
+                size="sm"
+                onClick={handleNCBIPathwayPress}
+              >
+                {props.t("go.ncbi.pathway")}
               </Button>
             </div>
           </div>
@@ -507,7 +574,7 @@ const VennDiagram1 = (props) => {
         </Modal.Header>
         <Modal.Body style={{ textAlign: "center" }}>
           <div className="row justify-content-center">
-            <div className="col-4">
+            <div className="col-3">
               <Button
                 className="shadow-none"
                 variant="outline-primary"
@@ -518,7 +585,7 @@ const VennDiagram1 = (props) => {
                 {props.t("show.gene.list")}
               </Button>
             </div>
-            <div className="col-4">
+            <div className="col-3">
               <Button
                 className="shadow-none"
                 variant="outline-primary"
@@ -529,14 +596,24 @@ const VennDiagram1 = (props) => {
                 {props.t("download.gene.list")}
               </Button>
             </div>
-            <div className="col-4">
+            <div className="col-3">
               <Button
                 className="shadow-none"
                 variant="outline-primary"
                 size="sm"
                 onClick={handleNCBIPress}
               >
-                {props.t("go.ncbi")}
+                {props.t("go.ncbi.genes")}
+              </Button>
+            </div>
+            <div className="col-3">
+              <Button
+                className="shadow-none"
+                variant="outline-primary"
+                size="sm"
+                onClick={handleNCBIPathwayPress}
+              >
+                {props.t("go.ncbi.pathway")}
               </Button>
             </div>
           </div>
