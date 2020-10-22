@@ -17,7 +17,7 @@ const App = () => {
   return (
     <div>
       <Suspense fallback={null}>
-        <BrowserRouter basename={'/tubitak-covid'}>
+        <BrowserRouter>
           <div style={{ textAlign: "center" }}>
             <Route path={`${process.env.PUBLIC_URL}/`} exact>
               <Header />
