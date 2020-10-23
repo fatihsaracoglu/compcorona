@@ -83,7 +83,9 @@ const VisualizeButton = (props) => {
         obj_list[2].content.includes(value)
       );
 
-      gene_set.label = "" + intersection_obj.content.length;
+      if (intersection_obj.content.length > 0) {
+        gene_set.label = "" + intersection_obj.content.length;
+      }
 
       // for hashing gene-name and pvalue
       var result_triple = {};
@@ -165,8 +167,10 @@ const VisualizeButton = (props) => {
         obj_list[1].content.includes(value)
       );
 
-      gene_set.label = "" + (intersection_obj1.content.length - intersection_obj.content.length);
-
+      var intersect_count1 = intersection_obj1.content.length - intersection_obj.content.length;
+      if (intersect_count1 > 0) {
+        gene_set.label = "" + intersect_count1;
+      }
 
       // for hashing gene-name and pvalue
       var result = {};
@@ -228,7 +232,10 @@ const VisualizeButton = (props) => {
         obj_list[2].content.includes(value)
       );
 
-      gene_set.label = "" + (intersection_obj2.content.length - intersection_obj.content.length);
+      var intersect_count2 = intersection_obj2.content.length - intersection_obj.content.length;
+      if (intersect_count2 > 0) {
+        gene_set.label = "" + intersect_count2;
+      }
 
       // for hashing gene-name and pvalue
       var result = {};
@@ -290,7 +297,10 @@ const VisualizeButton = (props) => {
         obj_list[2].content.includes(value)
       );
 
-      gene_set.label = "" + (intersection_obj3.content.length - intersection_obj.content.length);
+      var intersect_count3 = intersection_obj3.content.length - intersection_obj.content.length;
+      if (intersect_count3 > 0) {
+        gene_set.label = "" + intersect_count3;
+      }
 
       // for hashing gene-name and pvalue
       var result = {};
@@ -350,8 +360,10 @@ const VisualizeButton = (props) => {
         obj_list[1].content.includes(value)
       );
 
-      gene_set.label = "" + intersection_obj.content.length;
-
+      if (intersection_obj.content.length > 0) {
+        gene_set.label = "" + intersection_obj.content.length;
+      }
+      
       // for hashing gene-name and pvalue
       var result = {};
       var fc_result = {};

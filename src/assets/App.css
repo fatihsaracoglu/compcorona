@@ -1,6 +1,21 @@
-html, body, * {
+html {
+    height: 100%;
+}
+body {
     font-size: 15px;
+    min-height: 100%;
     box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.main {
+  min-height: 90.5vh;
+}
+
+footer {
+    grid-row-start: 2;
+  grid-row-end: 3;
 }
 
 .btn-sm {

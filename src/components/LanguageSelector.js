@@ -28,6 +28,7 @@ const LanguageSelector = () => {
         </li>
       );
     }
+    return true;
   });
 
   return (

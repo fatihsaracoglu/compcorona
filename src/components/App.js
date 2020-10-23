@@ -20,12 +20,15 @@ const App = () => {
         <BrowserRouter>
           <div style={{ textAlign: "center" }}>
             <Route path={`${process.env.PUBLIC_URL}/`} exact>
+              <div className="main">
               <Header />
               <FileSection style={{ marginBottom: "15%" }} />
               {nonFilteredFiles.length !== 0 || filteredFiles.length !== 0 ? null : (
               <div style={{ marginTop: "3%" }}>
                 <SelectPreprocessedData />
               </div>)}
+              </div>
+              
               <Footer />
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/diagram`} exact>
