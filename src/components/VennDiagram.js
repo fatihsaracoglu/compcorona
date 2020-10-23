@@ -84,7 +84,6 @@ const VennDiagram1 = (props) => {
           .style("stroke-opacity", 0);
       })
       .on("click", (d, i) => {
-        console.log(sets);
         //returns associated region's object {content:["", "",..], label:[""]}
         let region_obj = geneObjectList.find((obj) =>
           arraysEqual(obj.label, d.sets)
@@ -338,18 +337,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-              <div
-                className="label"
-                style={{ flex: "0 0 94%", fontSize: "18.5px" }}
-              >
                 {props.t("gene.list.title")}
-              </div>
-              <div
-                className="count"
-                style={{ color: "red", flex: "1", fontSize: "18.5px" }}
-              >
                 {currentRegionGeneCount}
-              </div>
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -370,6 +359,7 @@ const VennDiagram1 = (props) => {
                     style={{ textDecoration: "none", color: "inherit" }}
                     target="_blank"
                     href={url}
+                    key={idx}
                   >
                     <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
                   </a>
@@ -397,18 +387,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-              <div
-                className="label"
-                style={{ flex: "0 0 94%", fontSize: "17px" }}
-              >
                 {props.t("gene.list.title")}
-              </div>
-              <div
-                className="count"
-                style={{ color: "red", flex: "1", fontSize: "18.5px" }}
-              >
                 {currentRegionGeneCount}
-              </div>
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -431,6 +411,7 @@ const VennDiagram1 = (props) => {
                         style={{ textDecoration: "none", color: "inherit" }}
                         target="_blank"
                         href={url}
+                        key={idx}
                       >
                         <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
                       </a>
@@ -472,6 +453,7 @@ const VennDiagram1 = (props) => {
                         style={{ textDecoration: "none", color: "inherit" }}
                         target="_blank"
                         href={url}
+                        key={idx}
                       >
                         <ListGroup.Item key={idx}>{gene}</ListGroup.Item>
                       </a>
@@ -501,18 +483,10 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-              <div
-                className="label"
-                style={{ flex: "0 0 90%", fontSize: "18.5px" }}
-              >
+              
                 {props.t("option.list.title")}
-              </div>
-              <div
-                className="count"
-                style={{ color: "red", flex: "1", fontSize: "18.5px" }}
-              >
                 {currentRegionGeneCount}
-              </div>
+             
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -557,18 +531,10 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-              <div
-                className="label"
-                style={{ flex: "0 0 90%", fontSize: "18.5px" }}
-              >
+             
                 {props.t("option.list.title")}
-              </div>
-              <div
-                className="count"
-                style={{ color: "red", flex: "1", fontSize: "18.5px" }}
-              >
                 {currentRegionGeneCount}
-              </div>
+            
             </div>
           </Modal.Title>
         </Modal.Header>

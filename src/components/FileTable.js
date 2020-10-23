@@ -63,7 +63,7 @@ const FileTable = (props) => {
 
   const handleSave = () => {
     var flag = false;
-    var specialNames = ["SARS", "MERS", "SARS_COV2"]
+    var specialNames = ["SARS", "MERS", "SARS_COV2"];
     for (var i = 0; i < specialNames.length; i++) {
       if (newName === specialNames[i]) {
         flag = true;
@@ -126,7 +126,7 @@ const FileTable = (props) => {
   const toggleConfirmation = (fileName) => {
     FileStore.update((s) => {
       s.isDeleteConfirmationOpen = !isDeleteConfirmationOpen;
-      s.toBeDeletedFileName = fileName
+      s.toBeDeletedFileName = fileName;
     });
   };
 
@@ -135,10 +135,12 @@ const FileTable = (props) => {
       s.isDeleteConfirmationOpen = !isDeleteConfirmationOpen;
     });
     // deleting from filtered files
-    var deletedFileList = []
+    var deletedFileList = [];
     if (isFiltered) {
       var newfilteredFiles = filteredFiles;
-      let obj = newfilteredFiles.find((file) => file.name === toBeDeletedFileName);
+      let obj = newfilteredFiles.find(
+        (file) => file.name === toBeDeletedFileName
+      );
       let index = newfilteredFiles.indexOf(obj);
       deletedFileList = newfilteredFiles
         .slice(0, index)
@@ -146,24 +148,27 @@ const FileTable = (props) => {
     }
     // deleting from non-filtered files
     var newfilteredFiles2 = nonFilteredFiles;
-    let obj2 = newfilteredFiles2.find((file) => file.name === toBeDeletedFileName);
+    let obj2 = newfilteredFiles2.find(
+      (file) => file.name === toBeDeletedFileName
+    );
     let index2 = newfilteredFiles2.indexOf(obj2);
     var deletedFileList2 = newfilteredFiles2
       .slice(0, index2)
       .concat(newfilteredFiles2.slice(index2 + 1));
-      
-    var optionObj = {};
-    optionObj.value = toBeDeletedFileName;
-    optionObj.label = toBeDeletedFileName;
 
-    //console.log(optionObj)
-    //console.log(deletedFileList);
-    //console.log(deletedFileList2)
+    var special_names = ["SARS", "MERS", "SARS_COV2"];
+    if (special_names.includes(toBeDeletedFileName)) {
+      var optionObj = {};
+      optionObj.value = toBeDeletedFileName;
+      optionObj.label = toBeDeletedFileName;
+      FileStore.update((s) => {
+        s.options.push(optionObj);
+      });
+    }
 
     FileStore.update((s) => {
       s.nonFilteredFiles = deletedFileList2;
       s.filteredFiles = deletedFileList;
-      s.options.push(optionObj);
     });
   };
 
@@ -208,7 +213,11 @@ const FileTable = (props) => {
                         variant="outline-info"
                         size="sm"
                         id="edit-btn"
-                        disabled={file.name === "SARS" || file.name === "MERS" || file.name === "SARS_COV2" }
+                        disabled={
+                          file.name === "SARS" ||
+                          file.name === "MERS" ||
+                          file.name === "SARS_COV2"
+                        }
                       >
                         <i className="edit icon" id="icons"></i>
                       </Button>
@@ -274,7 +283,11 @@ const FileTable = (props) => {
                         variant="outline-info"
                         size="sm"
                         id="edit-btn"
-                        disabled={file.name === "SARS" || file.name === "MERS" || file.name === "SARS_COV2" }
+                        disabled={
+                          file.name === "SARS" ||
+                          file.name === "MERS" ||
+                          file.name === "SARS_COV2"
+                        }
                       >
                         <i className="edit icon" id="icons"></i>
                       </Button>

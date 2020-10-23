@@ -53,15 +53,9 @@ const VisualizeButton = (props) => {
       obj_list.push(set_obj);
     });
 
-    var totalList = [];
-
     var obj_list_for_intersections = [];
-    var count = 0;
     // If there are 3 files uploaded
     if (obj_list.length === 3) {
-      var i = 0;
-      var j = 0;
-
       // intersection of triple
       gene_set = {};
       gene_set.sets = [
@@ -163,9 +157,12 @@ const VisualizeButton = (props) => {
       gene_set.size = 10;
       var intersection_obj1 = {};
       intersection_obj1.label = [obj_list[0].label, obj_list[1].label];
-      intersection_obj1.content = obj_list[0].content.filter((value) =>
+      var intersec_content1 = obj_list[0].content.filter((value) =>
         obj_list[1].content.includes(value)
       );
+      intersection_obj1.content = [
+        ...new Set(intersec_content1),
+      ];
 
       var intersect_count1 = intersection_obj1.content.length - intersection_obj.content.length;
       if (intersect_count1 > 0) {
@@ -221,16 +218,18 @@ const VisualizeButton = (props) => {
         });
       }
 
-
       // Double Intersection - 2
       gene_set = {}
       gene_set.sets = [obj_list[1].label, obj_list[2].label];
       gene_set.size = 10;
       var intersection_obj2 = {};
       intersection_obj2.label = [obj_list[1].label, obj_list[2].label];
-      intersection_obj2.content = obj_list[1].content.filter((value) =>
+      var intersec_content2 = obj_list[1].content.filter((value) =>
         obj_list[2].content.includes(value)
       );
+      intersection_obj2.content = [
+        ...new Set(intersec_content2),
+      ];
 
       var intersect_count2 = intersection_obj2.content.length - intersection_obj.content.length;
       if (intersect_count2 > 0) {
@@ -293,9 +292,12 @@ const VisualizeButton = (props) => {
       gene_set.size = 10;
       var intersection_obj3 = {};
       intersection_obj3.label = [obj_list[0].label, obj_list[2].label];
-      intersection_obj3.content = obj_list[0].content.filter((value) =>
+      var intersec_content3 = obj_list[0].content.filter((value) =>
         obj_list[2].content.includes(value)
       );
+      intersection_obj3.content = [
+        ...new Set(intersec_content3),
+      ];
 
       var intersect_count3 = intersection_obj3.content.length - intersection_obj.content.length;
       if (intersect_count3 > 0) {
@@ -433,13 +435,15 @@ const VisualizeButton = (props) => {
       intersection_objects.forEach((o) => {
         content_of_intersection_objects.push(...o.content);
       });
+      console.log(region_obj)
+      console.log(intersection_objects)
+      console.log(content_of_intersection_objects);
       // To remove genes that are common in these two intersection regions
       var unique_content_of_intersection_objects = [
         ...new Set(content_of_intersection_objects),
       ];
-      difference_genes = region_obj.content.diff(
-        unique_content_of_intersection_objects
-      );
+      difference_genes = region_obj.content.filter(x => !content_of_intersection_objects.includes(x));
+      console.log(difference_genes.length)
       region_obj["differenceGenes"] = difference_genes;
       gene_set.sets = region_obj.label;
       gene_set.size = 100;
