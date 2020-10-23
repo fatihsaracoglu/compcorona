@@ -435,15 +435,8 @@ const VisualizeButton = (props) => {
       intersection_objects.forEach((o) => {
         content_of_intersection_objects.push(...o.content);
       });
-      console.log(region_obj)
-      console.log(intersection_objects)
-      console.log(content_of_intersection_objects);
-      // To remove genes that are common in these two intersection regions
-      var unique_content_of_intersection_objects = [
-        ...new Set(content_of_intersection_objects),
-      ];
+
       difference_genes = region_obj.content.filter(x => !content_of_intersection_objects.includes(x));
-      console.log(difference_genes.length)
       region_obj["differenceGenes"] = difference_genes;
       gene_set.sets = region_obj.label;
       gene_set.size = 100;
