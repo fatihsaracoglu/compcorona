@@ -15,6 +15,7 @@ const DropzoneContainer = (props) => {
     (s) => s.isMaxLimitErrorModalOpen
   );
   const isErrorModalOpen = FileStore.useState((s) => s.isErrorModalOpen);
+  const isErrorModalOpen2 = FileStore.useState((s) => s.isErrorModalOpen2);
 
   // When files are dragged or selected, this function will be called. It takes uploaded files
   // and check their count. If the count is not greater than 3, it will read files and show a model
@@ -31,16 +32,15 @@ const DropzoneContainer = (props) => {
       }, 2000);
     } else {
       var allowedFiles = [];
-      var file_types = ["text/csv", "text/tab-separated-values"];
+      var file_types = ["text/csv", "text/tab-separated-values", ".csv", "application/vnd.ms-excel", "application/csv", "text/x-csv", "application/x-csv", "text/comma-separated-values", "text/x-comma-separated-values", "text/csv", "text/tab-separated-values", ".tsv", "application/tsv", "text/x-tsv", "application/x-tsv", "text/x-tab-separated-values"];
       files.forEach((file) => {
         if (!file_types.includes(file.type)) {
           FileStore.update((s) => {
             s.isErrorModalOpen = true;
           });
         } else if (file.name === "SARS" || file.name === "MERS" || file.name === "SARS_COV2") {
-          //CHANGE THIS LATER
           FileStore.update((s) => {
-            s.isErrorModalOpen = true;
+            s.isErrorModalOpen2 = true;
           });
         } else {
           allowedFiles.push(file);
@@ -109,6 +109,12 @@ const DropzoneContainer = (props) => {
     });
   };
 
+  const toggleErrorModal2 = () => {
+    FileStore.update((s) => {
+      s.isErrorModalOpen2 = !isErrorModalOpen2;
+    });
+  }
+
   const toggleLimitErrorModal = () => {
     FileStore.update((s) => {
       s.isMaxLimitErrorModalOpen = !isMaxLimitErrorModalOpen;
@@ -119,7 +125,7 @@ const DropzoneContainer = (props) => {
 
   return (
     <div>
-      <Dropzone onDrop={onDrop}>
+      <Dropzone onDrop={onDrop} accept=".csv, text/csv, application/vnd.ms-excel, application/csv, text/x-csv, application/x-csv, text/comma-separated-values, text/x-comma-separated-values, .tsv, text/tsv, application/tsv, text/x-tsv, application/x-tsv, text/tab-separated-values, text/x-tab-separated-values">
         {({ getRootProps, getInputProps }) => (
           <section className="container">
             <div
@@ -193,6 +199,37 @@ const DropzoneContainer = (props) => {
             {props.t("csv.type.error")}
           </Alert>
           <Button variant="secondary" size="sm" onClick={toggleErrorModal}>
+            {props.t("ok")}
+          </Button>
+        </Modal.Body>
+      </Modal>
+      <Modal show={isErrorModalOpen2} onHide={toggleErrorModal2}>
+        <Modal.Body
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <i
+              className="exclamation circle icon"
+              style={{
+                color: "red",
+                fontSize: "80px",
+                paddingBottom: "8%",
+              }}
+            ></i>
+          </div>
+          <Alert
+            variant="secondary"
+            style={{
+              textAlign: "center",
+              borderRadius: "0",
+              marginTop: "3%",
+            }}
+          >
+            {props.t("file.name.error.label")}
+          </Alert>
+          <Button variant="secondary" size="sm" onClick={toggleErrorModal2}>
             {props.t("ok")}
           </Button>
         </Modal.Body>

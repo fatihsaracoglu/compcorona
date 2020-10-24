@@ -7,6 +7,7 @@ export const FileStore = new Store({
   rows: [],
   isMaxLimitErrorModalOpen: false,
   isErrorModalOpen: false,
+  isErrorModalOpen2: false,
   isEditModalOpen: false,
   isDeleteConfirmationOpen: false,
   toBeDeletedFileName: "",

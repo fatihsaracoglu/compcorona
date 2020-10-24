@@ -38,5 +38,6 @@
   "download.gene.list": "Gen Listesini İndir",
   "preprocessed.modal.title": "Hazır Gen Setleri",
   "select.label": "Seçiniz...",
-  "no.options.message": "Daha fazla gen seti bulunamadı"
+  "no.options.message": "Daha fazla gen seti bulunamadı",
+  "file.name.error.label": "Lütfen dosya adını değiştirip tekrar deneyiniz!"
 }

@@ -37,5 +37,6 @@
   "download.gene.list": "Download Gene List",
   "preprocessed.modal.title": "Preprocessed Gene Sets",
   "select.label": "Select...",
-  "no.options.message": "There are no more gene sets"
+  "no.options.message": "There are no more gene sets",
+  "file.name.error.label": "Please change your file name and try again!"
 }
