@@ -23,7 +23,7 @@ const FilterButton = (props) => {
       file.content.forEach((row) => {
         if (
           parseFloat(row.pval) <= pValue &&
-          parseFloat(row.fc) >= foldChange
+          Math.abs(parseFloat(row.de)) >= foldChange
         ) {
           filteredRows.push(row);
         }
@@ -95,15 +95,17 @@ const FilterButton = (props) => {
                 <i
                   className="info circle icon col-2"
                   style={{
-                    fontSize: "45px",
+                    fontSize: "50px",
                     color: "#ffc107",
-                    lineHeight: "80px",
+                    lineHeight: "100px",
                     flex: "0 0 14.666667%",
                     marginLeft: "4%",
                   }}
                 ></i>
                 <div className="col-9">
                   {props.t("filter.description.label")}
+                  <hr />
+                  {props.t("filter.description.label2")}
                 </div>
               </Row>
             </Card.Body>
@@ -146,7 +148,7 @@ const FilterButton = (props) => {
                 lineHeight: "35px",
               }}
             >
-              fold-change:{" "}
+              Differential Expression:{" "}
             </div>
             <div
               className="form-row"

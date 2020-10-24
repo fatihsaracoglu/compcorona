@@ -204,6 +204,7 @@ const FileTable = (props) => {
                         variant="outline-success"
                         size="sm"
                         id="preview-btn"
+                        disabled={file.content.length === 0}
                       >
                         <i className="eye icon" id="icons"></i>
                       </Button>
@@ -370,6 +371,9 @@ const FileTable = (props) => {
       </Modal>
 
       <Modal show={isPreviewModalOpen} onHide={togglePreviewModal} size="xl">
+        <Modal.Header closeButton>
+          <Modal.Title>{props.t("gene.table")}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <CsvToHtmlTable
             data={fileContent}

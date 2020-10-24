@@ -337,8 +337,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-                {props.t("gene.list.title")}
-                {currentRegionGeneCount}
+              {props.t("gene.list.title")}
+              {currentRegionGeneCount}
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -387,8 +387,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-                {props.t("gene.list.title")}
-                {currentRegionGeneCount}
+              {props.t("gene.list.title")}
+              {currentRegionGeneCount}
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -483,10 +483,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-              
-                {props.t("option.list.title")}
-                {currentRegionGeneCount}
-             
+              {props.t("option.list.title")}
+              {currentRegionGeneCount}
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -495,9 +493,8 @@ const VennDiagram1 = (props) => {
             <div className="col-4">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
-                style={{ marginRight: "5%" }}
                 onClick={handleGeneListPress}
               >
                 {props.t("show.gene.list")}
@@ -506,7 +503,7 @@ const VennDiagram1 = (props) => {
             <div className="col-4">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 onClick={handleNCBIPress}
               >
@@ -516,7 +513,7 @@ const VennDiagram1 = (props) => {
             <div className="col-4">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 onClick={handleNCBIPathwayPress}
               >
@@ -531,10 +528,8 @@ const VennDiagram1 = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>
             <div style={{ display: "flex", fontSize: "17px" }}>
-             
-                {props.t("option.list.title")}
-                {currentRegionGeneCount}
-            
+              {props.t("option.list.title")}
+              {currentRegionGeneCount}
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -543,9 +538,8 @@ const VennDiagram1 = (props) => {
             <div className="col-3">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
-                style={{ marginRight: "5%" }}
                 onClick={handleGeneListPress}
               >
                 {props.t("show.gene.list")}
@@ -554,9 +548,8 @@ const VennDiagram1 = (props) => {
             <div className="col-3">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
-                style={{ marginRight: "5%" }}
                 onClick={handleDownloadGeneList}
               >
                 {props.t("download.gene.list")}
@@ -565,7 +558,7 @@ const VennDiagram1 = (props) => {
             <div className="col-3">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 onClick={handleNCBIPress}
               >
@@ -575,7 +568,7 @@ const VennDiagram1 = (props) => {
             <div className="col-3">
               <Button
                 className="shadow-none"
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 onClick={handleNCBIPathwayPress}
               >

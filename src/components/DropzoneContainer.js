@@ -31,8 +31,9 @@ const DropzoneContainer = (props) => {
       }, 2000);
     } else {
       var allowedFiles = [];
+      var file_types = ["text/csv", "text/tab-separated-values"];
       files.forEach((file) => {
-        if (file.type !== "text/csv") {
+        if (!file_types.includes(file.type)) {
           FileStore.update((s) => {
             s.isErrorModalOpen = true;
           });
@@ -88,7 +89,7 @@ const DropzoneContainer = (props) => {
   const filterFile = (file) => {
     var filteredRows = [];
     file.content.forEach((row) => {
-      if (parseFloat(row.pval) <= pValue && parseFloat(row.fc) >= foldChange) {
+      if (parseFloat(row.pval) <= pValue && Math.abs(parseFloat(row.de)) >= foldChange) {
         filteredRows.push(row);
       }
     });
@@ -107,6 +108,12 @@ const DropzoneContainer = (props) => {
       s.isErrorModalOpen = !isErrorModalOpen;
     });
   };
+
+  const toggleLimitErrorModal = () => {
+    FileStore.update((s) => {
+      s.isMaxLimitErrorModalOpen = !isMaxLimitErrorModalOpen;
+    });
+  }
 
   /********************************/
 
@@ -131,7 +138,7 @@ const DropzoneContainer = (props) => {
           </section>
         )}
       </Dropzone>
-      <Modal show={isMaxLimitErrorModalOpen}>
+      <Modal show={isMaxLimitErrorModalOpen} onHide={toggleLimitErrorModal}>
         <Modal.Body
           style={{
             textAlign: "center",

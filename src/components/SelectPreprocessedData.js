@@ -107,7 +107,7 @@ const SelectPreprocessedData = (props) => {
   const filterFile = (file) => {
     var filteredRows = [];
     file.content.forEach((row) => {
-      if (parseFloat(row.pval) <= pValue && parseFloat(row.fc) >= foldChange) {
+      if (parseFloat(row.pval) <= pValue && Math.abs(parseFloat(row.de)) >= foldChange) {
         filteredRows.push(row);
       }
     });
@@ -150,7 +150,7 @@ const SelectPreprocessedData = (props) => {
         <i className="file icon"></i> {props.t("preprocessed.modal.title")}
       </Button>
 
-      <Modal show={isPreprocessedDataModalOpen} onHide={toggleModal}>
+      <Modal show={isPreprocessedDataModalOpen} onHide={toggleModal} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>{props.t("preprocessed.modal.title")}</Modal.Title>
         </Modal.Header>

@@ -21,3 +21,7 @@ footer {
 .btn-sm {
     font-size: .960rem !important;
 }
+
+.modal-backdrop.show {
+  opacity: 0.8 !important;
+}
