@@ -3,8 +3,9 @@
   "header.paragraph": "You can upload your gene sets, or use the preprocessed gene sets.",
   "dropzone": "Drag and drop some files (.csv or .tsv) here, or click to select",
   "filter.label": "Filter",
-  "filter.description.label": "Filter process will be applied on genes according to below parameters.",
-  "filter.description.label2": "Example: gene.pval < 0.05 and abs(gene.de) > 2",
+  "filter.description.label": "Filtering will be applied on genes according to below parameters.",
+  "filter.description.label2": "Example",
+  "filter.description.label3": "gene.pval < 0.05 and abs(log2(gene.fc)) > 2",
   "filter.save.button.label": "Save",
   "filter.reset.button.label": "Load Original Files",
   "table.name.label": "File Name",
@@ -38,5 +39,7 @@
   "preprocessed.modal.title": "Preprocessed Gene Sets",
   "select.label": "Select...",
   "no.options.message": "There are no more gene sets",
-  "file.name.error.label": "Please change your file name and try again!"
+  "file.name.error.label": "Please change your file name and try again!",
+  "file.column.missing.error.modal": "Your file doesn't include required columns!",
+  "file.column.warning": "Your file should at least contain a column with column name \"gene_name\" and optionally, additionally \"pval\" and \"fc\" for p_value and raw fold_change filters."
 }

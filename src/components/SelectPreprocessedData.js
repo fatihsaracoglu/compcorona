@@ -39,7 +39,6 @@ const SelectPreprocessedData = (props) => {
   const toggleErrorModal = () => {
     FileStore.update((s) => {
       s.isMaxLimitErrorModalOpen = !isMaxLimitErrorModalOpen;
-      s.isPreprocessedDataModalOpen = !isPreprocessedDataModalOpen;
     });
   };
 

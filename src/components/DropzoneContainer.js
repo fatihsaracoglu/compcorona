@@ -16,6 +16,7 @@ const DropzoneContainer = (props) => {
   );
   const isErrorModalOpen = FileStore.useState((s) => s.isErrorModalOpen);
   const isErrorModalOpen2 = FileStore.useState((s) => s.isErrorModalOpen2);
+  const isErrorModalOpen3 = FileStore.useState((s) => s.isErrorModalOpen3);
 
   // When files are dragged or selected, this function will be called. It takes uploaded files
   // and check their count. If the count is not greater than 3, it will read files and show a model
@@ -78,12 +79,24 @@ const DropzoneContainer = (props) => {
     var fileObj = {};
     fileObj["name"] = file.name;
     fileObj["content"] = rows;
-    if (isFiltered) {
-      filterFile(fileObj);
+    if (rows[0].gene_name === undefined) {
+      FileStore.update((s) => {
+        s.isErrorModalOpen3 = !isErrorModalOpen3;
+      });
+    } else {
+      if (isFiltered) {
+        filterFile(fileObj);
+      }
+      FileStore.update((s) => {
+        s.nonFilteredFiles.push(fileObj);
+      });
     }
-    FileStore.update((s) => {
-      s.nonFilteredFiles.push(fileObj);
-    });
+
+    if (rows[0].fc === undefined || rows[0].pval === undefined) {
+      FileStore.update((s) => {
+        s.canBeFiltered = false;
+      });
+    }
   };
 
   const filterFile = (file) => {
@@ -112,6 +125,12 @@ const DropzoneContainer = (props) => {
   const toggleErrorModal2 = () => {
     FileStore.update((s) => {
       s.isErrorModalOpen2 = !isErrorModalOpen2;
+    });
+  }
+
+  const toggleErrorModal3 = () => {
+    FileStore.update((s) => {
+      s.isErrorModalOpen3 = !isErrorModalOpen3;
     });
   }
 
@@ -230,6 +249,38 @@ const DropzoneContainer = (props) => {
             {props.t("file.name.error.label")}
           </Alert>
           <Button variant="secondary" size="sm" onClick={toggleErrorModal2}>
+            {props.t("ok")}
+          </Button>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={isErrorModalOpen3} onHide={toggleErrorModal3}>
+        <Modal.Body
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <i
+              className="exclamation circle icon"
+              style={{
+                color: "red",
+                fontSize: "80px",
+                paddingBottom: "8%",
+              }}
+            ></i>
+          </div>
+          <Alert
+            variant="secondary"
+            style={{
+              textAlign: "center",
+              borderRadius: "0",
+              marginTop: "3%",
+            }}
+          >
+            {props.t("file.column.missing.error.modal")}
+          </Alert>
+          <Button variant="secondary" size="sm" onClick={toggleErrorModal3}>
             {props.t("ok")}
           </Button>
         </Modal.Body>

@@ -4,7 +4,8 @@
   "dropzone": "Dosyaları (.csv ya da .tsv) sürükleyip bırakın, ya da seçmek için tıklayın",
   "filter.label": "Filtrele",
   "filter.description.label": "Filtreleme işlemi aşağıda yer alan parametrelere göre yapılacaktır.",
-  "filter.description.label2": "Örneğin: gene.pval < 0.05 ve abs(gene.de) > 2",
+  "filter.description.label2": "Örnek",
+  "filter.description.label3": "gene.pval < 0.05 ve abs(log2(gene.fc)) > 2",
   "filter.save.button.label": "Kaydet",
   "filter.reset.button.label": "Orijinal Dosyaları Yükle",
   "table.name.label": "Dosya Adı",
@@ -39,5 +40,7 @@
   "preprocessed.modal.title": "Hazır Gen Setleri",
   "select.label": "Seçiniz...",
   "no.options.message": "Daha fazla gen seti bulunamadı",
-  "file.name.error.label": "Lütfen dosya adını değiştirip tekrar deneyiniz!"
+  "file.name.error.label": "Lütfen dosya adını değiştirip tekrar deneyiniz!",
+  "file.column.missing.error.modal": "Dosyanız gerekli olan sütunları içermiyor!",
+  "file.column.warning": "Dosyanız \"gene_name\" sütünunu mutlaka içermelidir ve isteğe bağlı olarak fitreleme yapabilmek için \"pval\" and \"fc\" sütünlarını da içerebilir."
 }

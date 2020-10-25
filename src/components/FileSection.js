@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FileTable from "./FileTable";
 import DropzoneContainer from "./DropzoneContainer";
@@ -43,6 +43,32 @@ const FileSection = (props) => {
                 </div>
               </div>
             ) : null}
+            {nonFilteredFiles.length === 0 ? (
+              <div
+              id="file-content-warning"
+              style={{ width: "50%", margin: "0 auto", marginTop: "3%" }}
+            >
+              <Card>
+                <Card.Body>
+                  <div style={{display: 'flex', alignItems: 'center'}}>
+                  <i
+                    className="info circle icon"
+                    style={{
+                      fontSize: "40px",
+                      color: "#ffc107",
+                      
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  ></i>{" "}
+                  <div className="message" style={{textAlign: 'left', marginLeft: '3%'}}>
+                  {props.t("file.column.warning")}</div>
+                  </div>
+                </Card.Body>
+              </Card>
+            </div>
+            ) : null}
+            
           </Col>
         </Row>
       </div>

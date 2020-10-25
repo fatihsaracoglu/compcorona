@@ -8,6 +8,7 @@ export const FileStore = new Store({
   isMaxLimitErrorModalOpen: false,
   isErrorModalOpen: false,
   isErrorModalOpen2: false,
+  isErrorModalOpen3: false,
   isEditModalOpen: false,
   isDeleteConfirmationOpen: false,
   toBeDeletedFileName: "",
@@ -44,5 +45,6 @@ export const FileStore = new Store({
     { value: "SARS", label: "SARS" },
     { value: "MERS", label: "MERS" },
     { value: "SARS_COV2", label: "SARS_COV2" },
-  ]
+  ],
+  canBeFiltered: true
 });

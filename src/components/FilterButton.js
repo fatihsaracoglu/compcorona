@@ -8,6 +8,7 @@ const FilterButton = (props) => {
   const pValue = FileStore.useState((s) => s.pValue);
   const foldChange = FileStore.useState((s) => s.foldChange);
   const isFilterModalOpen = FileStore.useState((s) => s.isFilterModalOpen);
+  const canBeFiltered = FileStore.useState((s) => s.canBeFiltered);
 
   // It reads all files that are uploaded beforehand, traverse them and filter based on
   // p-value and fold-change. Then, put these new filtered files into related state.
@@ -23,7 +24,7 @@ const FilterButton = (props) => {
       file.content.forEach((row) => {
         if (
           parseFloat(row.pval) <= pValue &&
-          Math.abs(parseFloat(row.de)) >= foldChange
+          Math.abs(Math.log2(parseFloat(row.fc))) >= foldChange
         ) {
           filteredRows.push(row);
         }
@@ -74,7 +75,7 @@ const FilterButton = (props) => {
         className="shadow-none"
         variant="outline-primary"
         size="sm"
-        disabled={Object.keys(nonFilteredFiles).length === 0}
+        disabled={Object.keys(nonFilteredFiles).length === 0 || !canBeFiltered}
         onClick={toggleFilterModal}
       >
         <i className="filter icon"></i> {props.t("filter.label")}
@@ -105,7 +106,9 @@ const FilterButton = (props) => {
                 <div className="col-9">
                   {props.t("filter.description.label")}
                   <hr />
-                  {props.t("filter.description.label2")}
+                  <p style={{marginBottom: '1%'}}><strong>{props.t("filter.description.label2")}</strong></p>
+                  
+                  {props.t("filter.description.label3")}
                 </div>
               </Row>
             </Card.Body>
@@ -148,7 +151,7 @@ const FilterButton = (props) => {
                 lineHeight: "35px",
               }}
             >
-              Differential Expression:{" "}
+              fold-change:{" "}
             </div>
             <div
               className="form-row"
