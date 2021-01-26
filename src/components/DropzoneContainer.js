@@ -39,7 +39,7 @@ const DropzoneContainer = (props) => {
           FileStore.update((s) => {
             s.isErrorModalOpen = true;
           });
-        } else if (file.name === "SARS" || file.name === "MERS" || file.name === "SARS_COV2") {
+        } else if (file.name === "SARS_GSE56192" || file.name === "MERS_GSE139516" || file.name === "MERS_GSE56192" || file.name === "SARS_COV2_GSE120934" || file.name === "SARS_COV2_GSE147507") {
           FileStore.update((s) => {
             s.isErrorModalOpen2 = true;
           });

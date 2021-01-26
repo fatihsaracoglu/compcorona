@@ -1,16 +1,15 @@
 import React from "react";
-import { Button, Modal, Alert } from "react-bootstrap";
+import { Button, Modal, Alert, Row } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
 import { FileStore } from "../stores/FileStore";
 import AsyncSelect from "react-select";
 import makeAnimated from "react-select/animated";
-import sars from "../data/sars.csv";
-import mers from "../data/mers.csv";
-import sarscov2 from "../data/sars-cov2.csv";
+import sars from "../data/SARS-GSE56192.csv";
+import mers from "../data/MERS-GSE139516.csv";
+import mers2 from "../data/MERS-GSE56192.csv";
+import sarscov2 from "../data/SARS_COV_2-GSE120934.csv";
+import sarscov22 from "../data/SARS_COV_2-GSE147507.csv";
 import * as d3 from "d3";
-import "../data/mers.csv";
-import "../data/sars.csv";
-import "../data/sars-cov2.csv";
 
 const animatedComponents = makeAnimated();
 
@@ -48,9 +47,11 @@ const SelectPreprocessedData = (props) => {
 
   const handleSave = () => {
     var map = {
-      SARS: sars,
-      MERS: mers,
-      SARS_COV2: sarscov2,
+      SARS_GSE56192: sars,
+      MERS_GSE139516: mers,
+      MERS_GSE56192: mers2,
+      SARS_COV2_GSE120934: sarscov2,
+      SARS_COV2_GSE147507: sarscov22
     };
     var files = [];
     selectedOptions.forEach((obj) => {
@@ -154,24 +155,23 @@ const SelectPreprocessedData = (props) => {
           <Modal.Title>{props.t("preprocessed.modal.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ textAlign: "center", padding: "8% 2% 8% 2%" }}>
-          <AsyncSelect
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            isMulti
-            options={options}
-            onChange={handleChange}
-            noOptionsMessage={() => props.t("no.options.message")}
-            placeholder={props.t("select.label")}
-          />
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <AsyncSelect
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              isMulti
+              options={options}
+              onChange={handleChange}
+              noOptionsMessage={() => props.t("no.options.message")}
+              placeholder={props.t("select.label")}
+              className="col-8"
+            />
+            <Button variant="primary" size="sm" onClick={handleSave}>
+              {props.t("ok")}
+            </Button>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" size="sm" onClick={toggleModal}>
-            {props.t("edit.close.button.label")}
-          </Button>
-          <Button variant="primary" size="sm" onClick={handleSave}>
-            {props.t("ok")}
-          </Button>
-        </Modal.Footer>
+        
       </Modal>
 
       <Modal show={isMaxLimitErrorModalOpen} onHide={toggleErrorModal}>

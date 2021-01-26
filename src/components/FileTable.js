@@ -63,7 +63,7 @@ const FileTable = (props) => {
 
   const handleSave = () => {
     var flag = false;
-    var specialNames = ["SARS", "MERS", "SARS_COV2"];
+    var specialNames = ["SARS_GSE56192", "MERS_GSE139516", "MERS_GSE56192", "SARS_COV2_GSE120934", "SARS_COV2_GSE147507"];
     for (var i = 0; i < specialNames.length; i++) {
       if (newName === specialNames[i]) {
         flag = true;
@@ -156,7 +156,7 @@ const FileTable = (props) => {
       .slice(0, index2)
       .concat(newfilteredFiles2.slice(index2 + 1));
 
-    var special_names = ["SARS", "MERS", "SARS_COV2"];
+    var special_names = ["SARS_GSE56192", "MERS_GSE139516", "MERS_GSE56192", "SARS_COV2_GSE120934", "SARS_COV2_GSE147507"];
     if (special_names.includes(toBeDeletedFileName)) {
       var optionObj = {};
       optionObj.value = toBeDeletedFileName;
@@ -215,9 +215,11 @@ const FileTable = (props) => {
                         size="sm"
                         id="edit-btn"
                         disabled={
-                          file.name === "SARS" ||
-                          file.name === "MERS" ||
-                          file.name === "SARS_COV2"
+                          file.name === "SARS_GSE56192" ||
+                          file.name === "MERS_GSE139516" ||
+                          file.name === "MERS_GSE56192" ||
+                          file.name === "SARS_COV2_GSE120934" ||
+                          file.name === "SARS_COV2_GSE147507"
                         }
                       >
                         <i className="edit icon" id="icons"></i>
@@ -285,9 +287,11 @@ const FileTable = (props) => {
                         size="sm"
                         id="edit-btn"
                         disabled={
-                          file.name === "SARS" ||
-                          file.name === "MERS" ||
-                          file.name === "SARS_COV2"
+                          file.name === "SARS_GSE56192" ||
+                          file.name === "MERS_GSE139516" ||
+                          file.name === "MERS_GSE56192" ||
+                          file.name === "SARS_COV2_GSE120934" ||
+                          file.name === "SARS_COV2_GSE147507"
                         }
                       >
                         <i className="edit icon" id="icons"></i>

@@ -42,9 +42,11 @@ export const FileStore = new Store({
   isPreprocessedDataModalOpen: false,
   selectedPreprocessedData: [],
   options: [
-    { value: "SARS", label: "SARS" },
-    { value: "MERS", label: "MERS" },
-    { value: "SARS_COV2", label: "SARS_COV2" },
+    { value: "SARS_GSE56192", label: "SARS (GSE56192)" },
+    { value: "MERS_GSE139516", label: "MERS (GSE139516)" },
+    { value: "MERS_GSE56192", label: "MERS (GSE56192)" },
+    { value: "SARS_COV2_GSE120934", label: "SARS-CoV-2 (GSE120934)" },
+    { value: "SARS_COV2_GSE147507", label: "SARS-CoV-2 (GSE147507)" }
   ],
   canBeFiltered: true
 });
