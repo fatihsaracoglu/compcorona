@@ -48,5 +48,6 @@ export const FileStore = new Store({
     { value: "SARS_COV2_GSE120934", label: "SARS-CoV-2 (GSE120934)" },
     { value: "SARS_COV2_GSE147507", label: "SARS-CoV-2 (GSE147507)" }
   ],
-  canBeFiltered: true
+  canBeFiltered: true,
+  imgSetNumber: 0
 });

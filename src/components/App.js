@@ -8,6 +8,7 @@ import "../i18n";
 import "../assets/App.css";
 import SelectPreprocessedData from "./SelectPreprocessedData";
 import { FileStore } from "../stores/FileStore";
+import CytoscapeGraph from "./CytoscapeGraph";
 
 const App = () => {
 
@@ -33,6 +34,9 @@ const App = () => {
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/diagram`} exact>
               <DiagramPage />
+            </Route>
+            <Route path={`${process.env.PUBLIC_URL}/cytoscape`} exact>
+              <CytoscapeGraph />
             </Route>
           </div>
         </BrowserRouter>

@@ -42,5 +42,6 @@
   "no.options.message": "Daha fazla gen seti bulunamadı",
   "file.name.error.label": "Lütfen dosya adını değiştirip tekrar deneyiniz!",
   "file.column.missing.error.modal": "Dosyanız gerekli olan sütunları içermiyor!",
-  "file.column.warning": "Dosyanız \"gene_name\" sütünunu mutlaka içermelidir ve isteğe bağlı olarak fitreleme yapabilmek için \"pval\" and \"fc\" sütünlarını da içerebilir."
+  "file.column.warning": "Dosyanız \"gene_name\" sütünunu mutlaka içermelidir ve isteğe bağlı olarak fitreleme yapabilmek için \"pval\" and \"fc\" sütünlarını da içerebilir.",
+  "download.cytoscape.graph": "STRING Bağlantı Haritasını ve CNET Grafiğini Göster"
 }

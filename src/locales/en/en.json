@@ -41,5 +41,6 @@
   "no.options.message": "There are no more gene sets",
   "file.name.error.label": "Please change your file name and try again!",
   "file.column.missing.error.modal": "Your file doesn't include required columns!",
-  "file.column.warning": "Your file should at least contain a column with column name \"gene_name\" and optionally, additionally \"pval\" and \"fc\" for p_value and raw fold_change filters."
+  "file.column.warning": "Your file should at least contain a column with column name \"gene_name\" and optionally, additionally \"pval\" and \"fc\" for p_value and raw fold_change filters.",
+  "download.cytoscape.graph": "Show STRING Interaction Map and CNET Graph"
 }

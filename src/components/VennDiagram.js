@@ -5,6 +5,7 @@ import { Modal, ListGroup, Button, Tabs, Tab } from "react-bootstrap";
 import { FileStore } from "../stores/FileStore";
 import { withTranslation } from "react-i18next";
 import { ExportToCsv } from "export-to-csv";
+import { Link } from "react-router-dom";
 import "../assets/VennDiagram.css";
 
 /* eslint-disable */
@@ -34,8 +35,10 @@ const VennDiagram1 = (props) => {
     (s) => s.isGeneListWebsiteOptionModal2
   );
   const modalNumber = FileStore.useState((s) => s.modalNumber);
-  const downloadingModal = FileStore.useState((s) => s.downloadingModal);
   const clickedRegionObject = FileStore.useState((s) => s.clickedRegionObject);
+  const nonFilteredFiles = FileStore.useState((s) => s.nonFilteredFiles);
+  const imgSetNumber = FileStore.useState((s) => s.imgSetNumber);
+  
 
   const arraysEqual = (arr1, arr2) => {
     if (arr1.length !== arr2.length) return false;
@@ -45,6 +48,18 @@ const VennDiagram1 = (props) => {
 
     return true;
   };
+
+  const areEqual = (first, second) => {
+    if (first.length !== second.length){
+       return false;
+    };
+    for (let i = 0; i < first.length; i++){
+       if (!second.includes(first[i])){
+          return false;
+       };
+    };
+    return true;
+ };
 
   React.useEffect(() => {
     const div = d3.select(".venn-diagram");
@@ -88,6 +103,77 @@ const VennDiagram1 = (props) => {
         let region_obj = geneObjectList.find((obj) =>
           arraysEqual(obj.label, d.sets)
         );
+
+        console.log(d)
+        if (areEqual(d["sets"], ["SARS_GSE56192", "MERS_GSE139516"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 1;
+          });
+        } else if (areEqual(d["sets"], ["SARS_GSE56192", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 2;
+          });
+        } else if (areEqual(d["sets"], ["MERS_GSE139516", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 3;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "MERS_GSE139516", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 4;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "MERS_GSE139516"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 5;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 6;
+          });
+        } else if (areEqual(d["sets"],  ["MERS_GSE139516", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 7;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "MERS_GSE139516", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 8;
+          });
+        } else if (areEqual(d["sets"], ["SARS_GSE56192", "MERS_GSE56192"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 9;
+          });
+        } else if (areEqual(d["sets"], ["SARS_GSE56192", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 10;
+          });
+        } else if (areEqual(d["sets"], ["MERS_GSE56192", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 11;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "MERS_GSE56192", "SARS_COV2_GSE120934"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 12;
+          });
+        } else if (areEqual(d["sets"], ["SARS_GSE56192", "MERS_GSE139516"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 13;
+          });
+        } else if (areEqual(d["sets"], ["SARS_GSE56192", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 14;
+          });
+        } else if (areEqual(d["sets"], ["MERS_GSE139516", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 15;
+          });
+        } else if (areEqual(d["sets"],  ["SARS_GSE56192", "MERS_GSE139516", "SARS_COV2_GSE147507"])) {
+          FileStore.update((s) => {
+            s.fieldNumber = 16;
+          });
+        }
+
+        
+       
+        
 
         FileStore.update((s) => {
           s.clickedRegionObject = region_obj;
@@ -324,6 +410,42 @@ const VennDiagram1 = (props) => {
     csvExporter.generateCsv(csvData);
   };
 
+  const handleDownloadCytoscape = () => {
+
+    const file_names = []
+    nonFilteredFiles.forEach(element => {
+      file_names.push(element["name"])
+    });
+
+    const files1 = ["SARS_GSE56192", "MERS_GSE139516", "SARS_COV2_GSE120934"];
+    const files2 = ["SARS_GSE56192", "MERS_GSE56192", "SARS_COV2_GSE120934"];
+    const files3 = ["SARS_GSE56192", "MERS_GSE139516", "SARS_COV2_GSE147507"];
+    const files4 = ["SARS_GSE56192", "MERS_GSE56192", "SARS_COV2_GSE147507"];
+
+    if (areEqual(file_names, files1)) {
+      FileStore.update((s) => {
+        s.imgSetNumber = 1;
+      });
+    } else if (areEqual(file_names, files2)) {
+      FileStore.update((s) => {
+        s.imgSetNumber = 2;
+      });
+    } else if (areEqual(file_names, files3)) {
+      FileStore.update((s) => {
+        s.imgSetNumber = 3;
+      });
+    } else if (areEqual(file_names, files4)) {
+      FileStore.update((s) => {
+        s.imgSetNumber = 4;
+      });
+    } else {
+      FileStore.update((s) => {
+        s.imgSetNumber = 5;
+      });
+    }
+    console.log(imgSetNumber)
+  }
+
   return (
     <div
       style={{
@@ -489,33 +611,36 @@ const VennDiagram1 = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ textAlign: "center" }}>
-          <div className="row justify-content-center">
-            <div className="col-4">
+          <div className="justify-content-center">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleGeneListPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("show.gene.list")}
               </Button>
             </div>
-            <div className="col-4">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleNCBIPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("go.ncbi.genes")}
               </Button>
             </div>
-            <div className="col-4">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleNCBIPathwayPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("go.ncbi.pathway")}
               </Button>
@@ -534,43 +659,60 @@ const VennDiagram1 = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ textAlign: "center" }}>
-          <div className="row justify-content-center">
-            <div className="col-3">
+          <div className="justify-content-center">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleGeneListPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("show.gene.list")}
               </Button>
             </div>
-            <div className="col-3">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleDownloadGeneList}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("download.gene.list")}
               </Button>
             </div>
-            <div className="col-3">
+            <div>
+            <Link to={`${process.env.PUBLIC_URL}/cytoscape`}>
+              <Button
+                className="shadow-none"
+                variant="primary"
+                size="sm"
+                onClick={handleDownloadCytoscape}
+                style={{width: "65%", marginBottom: "3%"}}
+              >
+                {props.t("download.cytoscape.graph")}
+              </Button>
+              </Link>
+            </div>
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleNCBIPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("go.ncbi.genes")}
               </Button>
             </div>
-            <div className="col-3">
+            <div>
               <Button
                 className="shadow-none"
                 variant="primary"
                 size="sm"
                 onClick={handleNCBIPathwayPress}
+                style={{width: "65%", marginBottom: "3%"}}
               >
                 {props.t("go.ncbi.pathway")}
               </Button>
