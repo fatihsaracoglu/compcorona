@@ -37,11 +37,12 @@
   "go.ncbi.genes": "Genleri NCBI Genes'de Ara",
   "go.ncbi.pathway": "Genleri NCBI Pathways'de Ara",
   "download.gene.list": "Gen Listesini İndir",
-  "preprocessed.modal.title": "Hazır Gen Setleri",
+  "preprocessed.modal.title": "UpSet Grafiği için İşlenmiş Gen Setleri",
   "select.label": "Seçiniz...",
   "no.options.message": "Daha fazla gen seti bulunamadı",
   "file.name.error.label": "Lütfen dosya adını değiştirip tekrar deneyiniz!",
   "file.column.missing.error.modal": "Dosyanız gerekli olan sütunları içermiyor!",
   "file.column.warning": "Dosyanız \"gene_name\" sütünunu mutlaka içermelidir ve isteğe bağlı olarak fitreleme yapabilmek için \"pval\" and \"fc\" sütünlarını da içerebilir.",
-  "download.cytoscape.graph": "STRING Bağlantı Haritasını ve CNET Grafiğini Göster"
+  "download.cytoscape.graph": "STRING Bağlantı Haritasını ve CNET Grafiğini Göster",
+  "preprocessed.pca.button.title": "İşlenmiş Gen Setlerinin PCA Grafiği"
 }

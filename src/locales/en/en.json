@@ -36,11 +36,12 @@
   "go.ncbi.genes": "Search Genes on NCBI Genes",
   "go.ncbi.pathway": "Search Genes on NCBI Pathways",
   "download.gene.list": "Download Gene List",
-  "preprocessed.modal.title": "Preprocessed Gene Sets",
+  "preprocessed.modal.title": "Preprocessed Gene Sets for UpSet Plot",
   "select.label": "Select...",
   "no.options.message": "There are no more gene sets",
   "file.name.error.label": "Please change your file name and try again!",
   "file.column.missing.error.modal": "Your file doesn't include required columns!",
   "file.column.warning": "Your file should at least contain a column with column name \"gene_name\" and optionally, additionally \"pval\" and \"fc\" for p_value and raw fold_change filters.",
-  "download.cytoscape.graph": "Show STRING Interaction Map and CNET Graph"
+  "download.cytoscape.graph": "Show STRING Interaction Map and CNET Graph",
+  "preprocessed.pca.button.title": "PCA of Preprocessed Gene Sets"
 }

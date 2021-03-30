@@ -9,6 +9,9 @@ import "../assets/App.css";
 import SelectPreprocessedData from "./SelectPreprocessedData";
 import { FileStore } from "../stores/FileStore";
 import CytoscapeGraph from "./CytoscapeGraph";
+import PCAButton from "./PCAButton";
+import PCAGraph from "./PCAGraph";
+import { Link } from "react-router-dom";
 
 const App = () => {
 
@@ -25,8 +28,13 @@ const App = () => {
               <Header />
               <FileSection style={{ marginBottom: "15%" }} />
               {nonFilteredFiles.length !== 0 || filteredFiles.length !== 0 ? null : (
-              <div style={{ marginTop: "3%" }}>
+              <div style={{ marginTop: "3%", display: "flex", justifyContent: "center"}}>
+                <div style={{marginRight: "1%"}}>
                 <SelectPreprocessedData />
+                </div>
+                <Link to={`${process.env.PUBLIC_URL}/pca`}>
+                  <PCAButton />
+                </Link>
               </div>)}
               </div>
               
@@ -37,6 +45,9 @@ const App = () => {
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/cytoscape`} exact>
               <CytoscapeGraph />
+            </Route>
+            <Route path={`${process.env.PUBLIC_URL}/pca`} exact>
+              <PCAGraph />
             </Route>
           </div>
         </BrowserRouter>
