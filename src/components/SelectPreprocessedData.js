@@ -9,6 +9,7 @@ import mers from "../data/MERS-GSE139516.csv";
 import mers2 from "../data/MERS-GSE56192.csv";
 import sarscov2 from "../data/SARS_COV_2-GSE120934.csv";
 import sarscov22 from "../data/SARS_COV_2-GSE147507.csv";
+import pbmc from "../data/PBMC.csv";
 import * as d3 from "d3";
 
 const animatedComponents = makeAnimated();
@@ -51,7 +52,8 @@ const SelectPreprocessedData = (props) => {
       MERS_GSE139516: mers,
       MERS_GSE56192: mers2,
       SARS_COV2_GSE120934: sarscov2,
-      SARS_COV2_GSE147507: sarscov22
+      SARS_COV2_GSE147507: sarscov22,
+      PBMC: pbmc
     };
     var files = [];
     selectedOptions.forEach((obj) => {

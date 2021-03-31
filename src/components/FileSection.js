@@ -32,14 +32,16 @@ const FileSection = (props) => {
                 className="container"
                 style={{ marginTop: "4%", width: "80%" }}
               >
-                <div className="row justify-content-center">
+                <div className="justify-content-center">
                   <SelectPreprocessedData />
-                  <div style={{ margin: "0 4% 0 4%" }}>
-                    <FilterButton />
+                  <div style={{marginTop: '2%', display: 'flex', justifyContent: 'center'}}>
+                    <Link to={`${process.env.PUBLIC_URL}/diagram`}>
+                      <VisualizeButton />
+                    </Link>
+                    <div style={{ margin: "0 4% 0 4%" }}>
+                      <FilterButton />
+                    </div>
                   </div>
-                  <Link to={`${process.env.PUBLIC_URL}/diagram`}>
-                    <VisualizeButton />
-                  </Link>
                 </div>
               </div>
             ) : null}

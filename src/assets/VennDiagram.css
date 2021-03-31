@@ -1,3 +1,7 @@
 .list-group-item:hover {
     background-color: #DCDCDC;
 }
+
+svg {
+    display: inline-block;
+}

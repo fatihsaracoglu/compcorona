@@ -7,7 +7,7 @@ import LanguageSelector from './LanguageSelector';
 
 const Header = (props) => {
   return (
-    <Jumbotron style={{ textAlign: "center", margin: '2% 10% 4% 10%' }}>
+    <Jumbotron style={{ textAlign: "center", margin: '2% 15% 4% 15%' }}>
       <h2 style={{padding: '0 10% 0 10%'}}>{props.t("header.label")}</h2>
       <LanguageSelector style={{position: 'absolute', top: '0', right: '0'}} />
     </Jumbotron>

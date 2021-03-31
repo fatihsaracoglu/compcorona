@@ -19,12 +19,15 @@ const LeftPanel = (props) => {
         <div style={{ minHeight: "300px", marginTop: "7%" }}>
           <FileTable />
           <div className="container" style={{ marginTop: "4%" }}>
-            <div className="row justify-content-center">
+            <div className="ustify-content-center">
               <SelectPreprocessedData />
+              <div style={{marginTop: '2%', display: 'flex', justifyContent: 'center'}}>
+
               <div style={{ margin: "0 4% 0 4%" }}>
                 <FilterButton />
               </div>
               <VisualizeButton />
+              </div>
             </div>
           </div>
         </div>
