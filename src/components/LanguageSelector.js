@@ -41,8 +41,8 @@ const LanguageSelector = () => {
 
   return (
       <div className="lang">
-        <button onClick={changeLanguage} class="focus:outline-none bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-        <i class="fas fa-globe mr-2"></i>
+        <button onClick={changeLanguage} className="focus:outline-none bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        <i className="fas fa-globe mr-2"></i>
         <span>{lang === "en" ? "EN" : "TR"}</span>
         </button>
       </div>
