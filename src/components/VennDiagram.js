@@ -444,6 +444,7 @@ const VennDiagram1 = (props) => {
       });
     }
     console.log(imgSetNumber)
+    console.log("hey")
   }
 
   return (

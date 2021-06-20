@@ -47,7 +47,7 @@ export const FileStore = new Store({
     { value: "MERS_GSE56192", label: "MERS (GSE56192)" },
     { value: "SARS_COV2_GSE120934", label: "SARS-CoV-2 (GSE120934)" },
     { value: "SARS_COV2_GSE147507", label: "SARS-CoV-2 (GSE147507)" },
-    { value: "PBMC", label: "PBMC" }
+    { value: "PBMC_PRJCA002326", label: "PBMC-PRJCA002326" }
   ],
   canBeFiltered: true,
   imgSetNumber: 0,

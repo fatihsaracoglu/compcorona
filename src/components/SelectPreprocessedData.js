@@ -53,7 +53,7 @@ const SelectPreprocessedData = (props) => {
       MERS_GSE56192: mers2,
       SARS_COV2_GSE120934: sarscov2,
       SARS_COV2_GSE147507: sarscov22,
-      PBMC: pbmc
+      PBMC_PRJCA002326: pbmc
     };
     var files = [];
     selectedOptions.forEach((obj) => {
